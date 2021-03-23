@@ -1,28 +1,146 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Math@USF</title>
-    <link>https://samfdwang.github.io/posts/</link>
-    <description>Math@USF (Posts)</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 30 May 2020 00:00:00 +0000</lastBuildDate>
-    
-    <atom:link href="https://samfdwang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    
+    <title>Posts | Grad Math@USF</title>
+    <link>/posts/</link>
+      <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <description>Posts</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 08 Nov 2020 23:25:17 -0500</lastBuildDate>
+    <image>
+      <url>/images/icon_hu52d4978bb57ec1511a90a19194ce34ae_631017_512x512_fill_lanczos_center_2.png</url>
+      <title>Posts</title>
+      <link>/posts/</link>
+    </image>
     
     <item>
-      <title>An introduction to dbar steepest descent method</title>
-      <link>https://samfdwang.github.io/posts/hello/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://samfdwang.github.io/posts/hello/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Speaker:&lt;/strong&gt; Fudong Wang&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Time:&lt;/strong&gt; 2020-05-30 3:00PM.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Abstract:&lt;/strong&gt; In this talk, we will use a simple linear PDE to illustrate how to use the  powerful tool, &lt;code&gt;$ \bar{\partial}- $&lt;/code&gt;steepest descent method, to analysis long-time asymptotics of solutions to PDEs. &lt;code&gt;\( \partial \)&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;I am a big formula:
-&lt;code&gt;$$ \int_0^\infty\int_\mathbb{R}\frac{1-e^{-tv}}{u^2+v^2}dudv=\mathcal{O}(t^{-1}).$$&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;You cannot see me o!&lt;/p&gt;</description>
+      <title>Computing Reflection Coefficient of Schrondinger Operator via WKB method</title>
+      <link>/posts/wkb-reflection/</link>
+      <pubDate>Sun, 08 Nov 2020 23:25:17 -0500</pubDate>
+      <guid>/posts/wkb-reflection/</guid>
+      <description>&lt;p&gt;See the PDF:
+&lt;script type=&#34;text/javascript&#34; src=&#34;/js/pdf-js/build/pdf.js&#34;&gt;&lt;/script&gt;
+&lt;style&gt;
+#the-canvas {
+  border: 1px solid black;
+  direction: ltr;
+  width: 100%;
+  height: auto;
+}
+#paginator{
+    text-align: center;
+    margin-bottom: 10px;
+}
+&lt;/style&gt;
+
+&lt;div id=&#34;paginator&#34;&gt;
+    &lt;button id=&#34;prev&#34;&gt;Previous&lt;/button&gt;
+    &lt;button id=&#34;next&#34;&gt;Next&lt;/button&gt;
+    &amp;nbsp; &amp;nbsp;
+    &lt;span&gt;Page: &lt;span id=&#34;page_num&#34;&gt;&lt;/span&gt; / &lt;span id=&#34;page_count&#34;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;div id=&#34;embed-pdf-container&#34;&gt;
+    &lt;canvas id=&#34;the-canvas&#34;&gt;&lt;/canvas&gt;
+&lt;/div&gt;
+
+&lt;script type=&#34;text/javascript&#34;&gt;
+window.onload = function() {
+
+
+
+var url = &#34;\/pdf\/wkb.pdf&#34;;
+
+
+var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;];
+
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;;
+
+
+var pdfDoc = null,
+    pageNum = 1,
+    pageRendering = false,
+    pageNumPending = null,
+    scale = 3,
+    canvas = document.getElementById(&#39;the-canvas&#39;),
+    ctx = canvas.getContext(&#39;2d&#39;);
+
+
+
+function renderPage(num) {
+  pageRendering = true;
+  
+  pdfDoc.getPage(num).then(function(page) {
+    var viewport = page.getViewport({scale: scale});
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    
+    var renderContext = {
+      canvasContext: ctx,
+      viewport: viewport
+    };
+    var renderTask = page.render(renderContext);
+
+    
+    renderTask.promise.then(function() {
+      pageRendering = false;
+      if (pageNumPending !== null) {
+        
+        renderPage(pageNumPending);
+        pageNumPending = null;
+      }
+    });
+  });
+
+  
+  document.getElementById(&#39;page_num&#39;).textContent = num;
+}
+
+
+
+function queueRenderPage(num) {
+  if (pageRendering) {
+    pageNumPending = num;
+  } else {
+    renderPage(num);
+  }
+}
+
+
+
+function onPrevPage() {
+  if (pageNum &lt;= 1) {
+    return;
+  }
+  pageNum--;
+  queueRenderPage(pageNum);
+}
+document.getElementById(&#39;prev&#39;).addEventListener(&#39;click&#39;, onPrevPage);
+
+
+
+function onNextPage() {
+  if (pageNum &gt;= pdfDoc.numPages) {
+    return;
+  }
+  pageNum++;
+  queueRenderPage(pageNum);
+}
+document.getElementById(&#39;next&#39;).addEventListener(&#39;click&#39;, onNextPage);
+
+
+
+pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+  pdfDoc = pdfDoc_;
+  document.getElementById(&#39;page_count&#39;).textContent = pdfDoc.numPages;
+
+  
+  renderPage(pageNum);
+});
+}
+
+&lt;/script&gt;&lt;/p&gt;
+</description>
     </item>
     
   </channel>
